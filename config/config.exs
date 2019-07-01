@@ -10,6 +10,7 @@ use Mix.Config
 # child application in their own app, but all other
 # dependencies, regardless if they belong to one or multiple
 # apps, should be configured in the umbrella to avoid confusion.
+
 import_config "../apps/*/config/config.exs"
 
 # Sample configuration (overrides the imported configuration above):
@@ -18,3 +19,6 @@ import_config "../apps/*/config/config.exs"
 #       level: :info,
 #       format: "$date $time [$level] $metadata$message\n",
 #       metadata: [:user_id]
+#
+
+config :tesla, adapter: Tesla.Adapter.Hackney

@@ -19,4 +19,8 @@ defmodule BaseApiWeb.FallbackController do
     |> put_view(BaseApiWeb.ErrorView)
     |> render(:"404")
   end
+
+  def call(conn, error) do
+    IO.inspect error
+  end
 end

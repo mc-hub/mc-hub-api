@@ -5,9 +5,15 @@ defmodule BaseApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", BaseApiWeb do
-    pipe_through :api
+  pipeline :authenticated do
+    plug BaseApi.Plugs.EnsureAuthenticated
+    plug BaseApi.Plugs.FetchCurrentUser
+  end
 
-    resources "/users", UserController
+  scope "/api", BaseApiWeb do
+    pipe_through [:api]
+
+    post "/login", AuthController, :login
+    post "/register", AuthController, :register
   end
 end
