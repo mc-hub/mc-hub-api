@@ -1,12 +1,12 @@
-defmodule BaseApi.Accounts do
+defmodule Database.Accounts do
   @moduledoc """
   The Accounts context.
   """
 
   import Ecto.Query, warn: false
-  alias BaseApi.Repo
+  alias Database.Repo
 
-  alias BaseApi.Accounts.User
+  alias Database.Accounts.User
 
   @doc """
   Returns the list of users.
