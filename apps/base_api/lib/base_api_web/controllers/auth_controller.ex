@@ -10,15 +10,18 @@ defmodule BaseApiWeb.AuthController do
 
   def register(conn, %{"user" => user_params}) do
     with {:ok, %User{} = user} <- Accounts.create_user(user_params),
-         {:ok, token, _claims} <- Guardian.encode_and_sign(user)
-    do
-      conn
-      |> json(%{user: user.id, token: token})
+         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+      conn |> json(%{user: user.id, token: token})
     end
   end
 
-  def login(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
-    render(conn, "show.json", user: user)
+  def login(conn, %{"user" => %{"email" => email, "password" => password}}) do
+    user_obj = Accounts.get_user_by_email!(email)
+    IO.inspect user_obj
+
+    with {:ok, %User{} = user} <- Accounts.check_pass(user_obj, password),
+         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+      conn |> json(%{"token": token})
+    end
   end
 end

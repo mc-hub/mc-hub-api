@@ -36,6 +36,7 @@ defmodule Database.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+  def get_user_by_email!(email), do: Repo.get_by!(User, email: email)
 
   @doc """
   Creates a user.
@@ -52,6 +53,7 @@ defmodule Database.Accounts do
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
+    |> User.update_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -100,5 +102,15 @@ defmodule Database.Accounts do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  def check_pass(nil, _), do: {:error, "Incorrect email or password."}
+  def check_pass(user_obj, plain_text_password) do
+    case Argon2.verify_pass(plain_text_password, user_obj.encrypted_password) do
+      true ->
+        {:ok, user_obj}
+      false ->
+        check_pass(nil, nil)
+    end
   end
 end

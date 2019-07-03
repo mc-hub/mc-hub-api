@@ -15,5 +15,7 @@ defmodule BaseApiWeb.Router do
 
     post "/login", AuthController, :login
     post "/register", AuthController, :register
+
+    resources "/users", UserController
   end
 end
