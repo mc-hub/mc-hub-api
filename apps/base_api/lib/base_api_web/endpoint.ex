@@ -40,5 +40,6 @@ defmodule BaseApiWeb.Endpoint do
     key: "_base_api_key",
     signing_salt: "7jFV6vYE"
 
+  plug CORSPlug
   plug BaseApiWeb.Router
 end
