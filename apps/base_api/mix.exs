@@ -23,7 +23,7 @@ defmodule BaseApi.MixProject do
   def application do
     [
       mod: {BaseApi.Application, []},
-      extra_applications: [:logger, :runtime_tools, :database]
+      extra_applications: [:logger, :runtime_tools, :database, :bamboo, :bamboo_smtp]
     ]
   end
 
@@ -44,6 +44,8 @@ defmodule BaseApi.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:database,  in_umbrella: true},
       {:cors_plug, "~> 1.5"},
+      {:bamboo, "~> 1.2"},
+      {:bamboo_smtp, "~> 1.7.0"}
     ]
   end
 end

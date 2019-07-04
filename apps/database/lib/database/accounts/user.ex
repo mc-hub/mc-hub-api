@@ -8,6 +8,7 @@ defmodule Database.Accounts.User do
     field :email, :string
     field :encrypted_password, :string
     field :password, :string, virtual: true
+    field :email_confirmed, :boolean, default: false
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule Database.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email])
+    |> cast(attrs, [:name, :email, :email_confirmed])
     |> validate_required([:name, :email])
     |> check_uuid()
     |> unique_constraint(:email)

@@ -15,6 +15,7 @@ defmodule BaseApiWeb.Router do
 
     post "/login", AuthController, :login
     post "/register", AuthController, :register
+    get "/confirm_email/:token", AuthController, :email_confirmnation 
 
     resources "/users", UserController
   end
