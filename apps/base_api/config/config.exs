@@ -15,7 +15,7 @@ config :base_api, BaseApiWeb.Endpoint,
   pubsub: [name: BaseApi.PubSub, adapter: Phoenix.PubSub.PG2]
 
 config :base_api,
-ecto_repos: [Database.Repo]
+  ecto_repos: [Database.Repo]
 
 
 # Configures Elixir's Logger
