@@ -1,6 +1,8 @@
 defmodule BaseApi.Guardian do
   use Guardian, otp_app: :base_api
 
+  alias Database.Accounts
+
   def subject_for_token(resource, _claims) do
     sub = to_string(resource.id)
     {:ok, sub}
@@ -11,7 +13,7 @@ defmodule BaseApi.Guardian do
 
   def resource_from_claims(claims) do
     id = claims["sub"]
-    resource = Accounts.get_user(%{:sub => id})
+    resource = Accounts.get_user!(id)
     {:ok,  resource}
   end
   def resource_from_claims(_claims) do
