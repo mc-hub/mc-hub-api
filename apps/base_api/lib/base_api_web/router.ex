@@ -6,16 +6,22 @@ defmodule BaseApiWeb.Router do
   end
 
   pipeline :authenticated do
-    plug BaseApi.Plugs.EnsureAuthenticated
-    plug BaseApi.Plugs.FetchCurrentUser
+    plug BaseApi.Plugs.EnsureAuthenticatedPlug
+    plug BaseApi.Plugs.FetchUserPlug
   end
 
   scope "/api", BaseApiWeb do
     pipe_through [:api]
 
-    post "/login", AuthController, :login
-    post "/register", AuthController, :register
+    post "/auth/login", AuthController, :login
+    post "/auth/register", AuthController, :register
 
     resources "/users", UserController
+  end
+
+  scope "/api", BaseApiWeb do
+    pipe_through [:api, :authenticated]
+
+    get "/account/balance", BalanceController, :show
   end
 end
