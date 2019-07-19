@@ -1,6 +1,7 @@
 defmodule Database.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Database.Accounts.Balance
 
   schema "users" do
     field :name, :string
@@ -8,6 +9,7 @@ defmodule Database.Accounts.User do
     field :email, :string
     field :encrypted_password, :string
     field :password, :string, virtual: true
+    has_one :balance, Balance
 
     timestamps()
   end

@@ -4,9 +4,11 @@ defmodule Database.Accounts do
   """
 
   import Ecto.Query, warn: false
+  import Ecto
   alias Database.Repo
 
   alias Database.Accounts.User
+  alias Database.Accounts.Balance
 
   @doc """
   Returns the list of users.
@@ -51,10 +53,13 @@ defmodule Database.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
+    {:ok,user}=%User{}
     |> User.changeset(attrs)
     |> User.update_changeset(attrs)
     |> Repo.insert()
+
+    balance = Ecto.build_assoc(user, :balance, %{currentBalance: 0}) |> Repo.insert()
+    {:ok, user}
   end
 
   @doc """
