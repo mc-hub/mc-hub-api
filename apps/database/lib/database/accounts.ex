@@ -53,13 +53,12 @@ defmodule Database.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
-    {:ok,user}=%User{}
-    |> User.changeset(attrs)
-    |> User.update_changeset(attrs)
-    |> Repo.insert()
-
-    balance = Ecto.build_assoc(user, :balance, %{currentBalance: 0}) |> Repo.insert()
-    {:ok, user}
+    Repo.transaction(fn ->
+      %User{balance: %Balance{currentBalance: 0}}
+      |> User.changeset(attrs)
+      |> User.update_changeset(attrs)
+      |> Repo.insert!()
+    end)
   end
 
   @doc """
