@@ -5,7 +5,7 @@ defmodule Database.Repo.Migrations.CreateIpaddresses do
     create table(:ip_address) do
       add :host_name, :string
       add :ip, :string
-      add :is_ising, :boolean
+      add :is_using, :boolean
   end
 end
 end
