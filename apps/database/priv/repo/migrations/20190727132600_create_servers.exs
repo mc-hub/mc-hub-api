@@ -1,4 +1,4 @@
-defmodule Database.Repo.Migrations.AddRequiredColumsToUsers do
+defmodule Database.Repo.Migrations.CreateServers do
   use Ecto.Migration
 
   def change do
