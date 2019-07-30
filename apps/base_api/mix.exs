@@ -44,6 +44,7 @@ defmodule BaseApi.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:database,  in_umbrella: true},
       {:cors_plug, "~> 1.5"},
+      {:ecto_enum, "~> 1.3"},
     ]
   end
 end
