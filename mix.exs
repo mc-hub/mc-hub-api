@@ -27,10 +27,13 @@ defmodule Mchub.MixProject do
       {:guardian, "~> 1.0"},
       {:elixir_uuid, "~> 1.2"},
       {:tesla, "~> 1.2.0"},
-      {:hackney, "~> 1.14.0"}, 
-      {:jason, ">= 1.0.0"}
+      {:hackney, "~> 1.15.2"},
+      {:jason, ">= 1.0.0"},
+      {:httpoison, "~> 1.6"},
     ]
   end
+
+  
 
   defp aliases do
     [

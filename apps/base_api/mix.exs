@@ -23,7 +23,7 @@ defmodule BaseApi.MixProject do
   def application do
     [
       mod: {BaseApi.Application, []},
-      extra_applications: [:logger, :runtime_tools, :database]
+      extra_applications: [:logger, :runtime_tools, :database, :httpoison]
     ]
   end
 

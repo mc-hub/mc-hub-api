@@ -24,4 +24,20 @@ defmodule BaseApiWeb.AuthController do
       conn |> json(%{"token": token})
     end
   end
+
+  def getUserByToken(conn, %{"token" => token}) do
+    #{:ok, claims} = Guardian.decode_and_verify(token)
+    case Guardian.decode_and_verify(token) do
+      {:ok, claims} ->
+        sub = claims["sub"]
+        conn |> json(%{"userID": sub})
+      {:error, _claims} ->
+        conn |> json(%{"error": "invalid token"})
+
+
+    end
+
+
+  end
+
 end
