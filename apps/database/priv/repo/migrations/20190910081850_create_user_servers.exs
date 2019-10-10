@@ -10,6 +10,8 @@ defmodule Database.Repo.Migrations.CreateUserServers do
       add :server_name, :string
       add :creation_date, :utc_datetime
       add :deleted_date, :utc_datetime
-  end
+
+      timestamps()
+    end
   end
 end
