@@ -13,22 +13,30 @@ defmodule BaseApiWeb.ServerController do
 
   def listserver(conn, _params) do
     conn
-    |>json(%{test: "ljfljfs"})
+    #TODO Token authentication
+    user = nil
+    results = Servers.list_server(user)
+    IO.inspect("RESULT")
+    IO.inspect(results)
+    # |>json(%{total: Enum.count(results), servers: results})
   end
 
   def addserver(conn, %{"token" => token, "plan" => %{"region" => region, "plan" => plan, "game" => game}}) do
     # TODO: Token authentication
 
-    {:ok, response} = HTTPoison.request(
+    response = HTTPoison.request!(
       :post,
       "https://api.linode.com/v4/linode/instances",
       '{"region":"ap-northeast","type":"g6-nanode-1"}',
       [{"Content-Type","application/json"},{"Authorization","Bearer d12ddf6521257c86019c93b7313fdda8db482028c51fb5272980033f63e6b66f"}]
       #TODO LINODE AUTH TOKEN
-      )
-    Servers.create_server(id: response.'"id"', ip: Enum.at(response.ipv4, 0))
+      ).body
+      |> Jason.decode!
 
-  #  %{id: id, ip: ip} = response
+
+    ip = response["ipv4"]
+    |> Enum.at(0)
+    Servers.create_server(%{id: response["id"], ip: response["ipv4"], user: "megu"})
 
 
     conn

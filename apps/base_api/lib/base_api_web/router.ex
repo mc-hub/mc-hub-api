@@ -18,6 +18,7 @@ defmodule BaseApiWeb.Router do
     get "/listserver", ServerController, :listserver
     post "/addserver", ServerController, :addserver
     post "/tokentest", ServerController, :tokentest
+    post "/listserver", ServerController, :listserver
 
     resources "/users", UserController
   end
